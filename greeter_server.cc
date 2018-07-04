@@ -1,3 +1,6 @@
+#include <QCoreApplication>
+#include <QtConcurrent>
+
 #include <iostream>
 #include <memory>
 #include <string>
@@ -44,7 +47,9 @@ void RunServer() {
 }
 
 int main(int argc, char** argv) {
-  RunServer();
+  QCoreApplication app(argc, argv);
 
-  return 0;
+  QtConcurrent::run(RunServer);
+
+  return app.exec();
 }
