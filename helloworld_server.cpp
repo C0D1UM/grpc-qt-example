@@ -1,40 +1,37 @@
 #include <string>
 #include <memory>
 
-#include <QtConcurrent>
+#include <QtConcurrentRun>
 #include <QThread>
 #include <QDebug>
 
 #include "helloworld.grpc.pb.h"
 #include "helloworld_server.h"
 
-using grpc::Server;
 using grpc::ServerBuilder;
 
-void RunServer()
+void RunServer(std::shared_ptr<Server> server_)
 {
   qDebug() << "RunServer() -> Thread ID: " << QThread::currentThreadId();
 
-  std::string server_address("0.0.0.0:50060");
+  server_->Wait();
+}
 
-  ServerBuilder builder;
+namespace {
+  std::shared_ptr<Server> buildAndStartService(GreeterServiceImpl & service_)
+  {
+    auto server_address("0.0.0.0:50060");
 
-  builder.AddListeningPort(
-        server_address,
-        grpc::InsecureServerCredentials());
-
-  GreeterServiceImpl service;
-  builder.RegisterService(&service);
-
-  std::unique_ptr<Server> server(builder.BuildAndStart());
-  std::cout << "Server listening on " << server_address << std::endl;
-
-  server->Wait();
+    return ServerBuilder()
+        .AddListeningPort(server_address, grpc::InsecureServerCredentials())
+        .RegisterService(&service_)
+        .BuildAndStart();
+  }
 }
 
 HelloworldServer::HelloworldServer(QObject *parent)
   : QObject(parent)
+  , server(buildAndStartService(this->service))
 {
-
-  QtConcurrent::run(RunServer);
+  QtConcurrent::run(RunServer, this->server);
 }

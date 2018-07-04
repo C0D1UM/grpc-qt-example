@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 
 #include <grpcpp/grpcpp.h>
@@ -20,6 +22,7 @@ using grpc::Status;
 
 // GRPC stuff
 using grpc::ServerContext;
+using grpc::Server;
 
 // Logic and data behind the server's behavior.
 class GreeterServiceImpl final : public Greeter::Service
@@ -46,4 +49,7 @@ signals:
 public slots:
 
 private:
+  GreeterServiceImpl service;
+
+  std::shared_ptr<Server> server;
 };
