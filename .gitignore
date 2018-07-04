@@ -8,3 +8,5 @@ build-*
 # Python Protobuf files
 *_pb2*.py
 
+# Python generated artifacts
+__pycache__
