@@ -23,11 +23,13 @@ INCLUDEPATH += \
 SOURCES += \
   greeter_server.cc \
   helloworld.pb.cc \
-  helloworld.grpc.pb.cc
+  helloworld.grpc.pb.cc \
+    helloworld_server.cpp
 
 HEADERS += \
   helloworld.pb.h \
-  helloworld.grpc.pb.h
+  helloworld.grpc.pb.h \
+    helloworld_server.h
 
 macx {
   debug {
