@@ -1,9 +1,11 @@
 #include <string>
 #include <memory>
+#include <chrono>
 
 #include <QtConcurrentRun>
 #include <QThread>
 #include <QDebug>
+#include <QTimer>
 
 #include "helloworld.grpc.pb.h"
 #include "helloworld_server.h"
@@ -34,4 +36,12 @@ HelloworldServer::HelloworldServer(QObject *parent)
   , server(buildAndStartService(this->service))
 {
   QtConcurrent::run(RunServer, this->server);
+
+  // Testing shutdown 5 seconds later
+  QTimer::singleShot(std::chrono::seconds(5), this, [=]() {
+    qDebug() << "Shuting down!";
+    this->server->Shutdown();
+
+    emit shutdown();
+  });
 }

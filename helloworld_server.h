@@ -45,8 +45,7 @@ public:
   explicit HelloworldServer(QObject *parent = nullptr);
 
 signals:
-
-public slots:
+  void shutdown();
 
 private:
   GreeterServiceImpl service;

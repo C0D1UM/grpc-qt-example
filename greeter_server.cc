@@ -7,11 +7,14 @@
 
 int main(int argc, char** argv)
 {
-  QCoreApplication app(argc, argv);
-
   qDebug() << "main() -> Thread ID: " << QThread::currentThreadId();
 
+  QCoreApplication app(argc, argv);
   HelloworldServer service;
+
+  QObject::connect(
+        &service, &HelloworldServer::shutdown,
+        &app, &QCoreApplication::quit);
 
   return app.exec();
 }
