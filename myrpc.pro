@@ -25,19 +25,36 @@ SOURCES += \
   helloworld.grpc.pb.cc
 
 HEADERS += \
-  hellworld.pb.h \
-  hellworld.grpc.pb.h
+  helloworld.pb.h \
+  helloworld.grpc.pb.h
 
-macx: LIBS += -L$$PWD/vcpkg/debug/lib/ -lgrpc++ -lgrpc -lgpr -lcrypto -lssl -lz -lcares -lprotobufd
-macx: PRE_TARGETDEPS += \
-  $$PWD/vcpkg/debug/lib/libgrpc++.a
-  $$PWD/vcpkg/debug/lib/libgrpc.a
-  $$PWD/vcpkg/debug/lib/libgpr.a
-  $$PWD/vcpkg/debug/lib/libprotobufd.a
-  $$PWD/vcpkg/debug/lib/libcrypto.a
-  $$PWD/vcpkg/debug/lib/libssl.a
-  $$PWD/vcpkg/debug/lib/libz.a
-  $$PWD/vcpkg/debug/lib/libcares.a
+macx {
+  debug {
+    PRE_TARGETDEPS += \
+      $$PWD/vcpkg/debug/lib/libgrpc++.a
+      $$PWD/vcpkg/debug/lib/libgrpc.a
+      $$PWD/vcpkg/debug/lib/libgpr.a
+      $$PWD/vcpkg/debug/lib/libcrypto.a
+      $$PWD/vcpkg/debug/lib/libssl.a
+      $$PWD/vcpkg/debug/lib/libz.a
+      $$PWD/vcpkg/debug/lib/libcares.a
+      $$PWD/vcpkg/debug/lib/libprotobufd.a
 
-DISTFILES += \
-    .gitignore
+    LIBS += -L$$PWD/vcpkg/debug/lib/ -lgrpc++ -lgrpc -lgpr -lcrypto -lssl -lz -lcares -lprotobufd
+  }
+
+  release {
+    PRE_TARGETDEPS += \
+      $$PWD/vcpkg/lib/libgrpc++.a
+      $$PWD/vcpkg/lib/libgrpc.a
+      $$PWD/vcpkg/lib/libgpr.a
+      $$PWD/vcpkg/lib/libcrypto.a
+      $$PWD/vcpkg/lib/libssl.a
+      $$PWD/vcpkg/lib/libz.a
+      $$PWD/vcpkg/lib/libcares.a
+      $$PWD/vcpkg/lib/libprotobufd.a
+
+    LIBS += -L$$PWD/vcpkg/lib/ -lgrpc++ -lgrpc -lgpr -lcrypto -lssl -lz -lcares -lprotobuf
+  }
+}
+
