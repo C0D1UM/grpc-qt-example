@@ -1,3 +1,10 @@
+# C++ generated artifacts
 build-*
+
+# C++ Protobuf files
 *.pb.*
 *.pro.user
+
+# Python Protobuf files
+*_pb2*.py
+
