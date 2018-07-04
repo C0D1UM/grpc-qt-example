@@ -1,0 +1,11 @@
+prefix=/Users/pac/vcpkg/packages/protobuf_x64-osx/debug
+exec_prefix=/Users/pac/vcpkg/packages/protobuf_x64-osx/debug
+libdir=/Users/pac/vcpkg/packages/protobuf_x64-osx/debug/lib
+includedir=/Users/pac/vcpkg/packages/protobuf_x64-osx/debug/include
+
+Name: Protocol Buffers
+Description: Google's Data Interchange Format
+Version: 3.5.1
+Libs: -L${libdir} -lprotobuf 
+Cflags: -I${includedir} 
+Conflicts: protobuf-lite
