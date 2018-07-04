@@ -20,7 +20,7 @@ INCLUDEPATH += \
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-  greeter_client.cc \
+  greeter_server.cc \
   helloworld.pb.cc \
   helloworld.grpc.pb.cc
 
