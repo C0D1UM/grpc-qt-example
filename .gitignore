@@ -11,3 +11,9 @@ build-*
 # Python generated artifacts
 __pycache__
 *.pyc
+
+# Jetbrains
+**/.idea
+
+# VSCode
+**/.vscode

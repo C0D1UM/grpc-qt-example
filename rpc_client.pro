@@ -13,15 +13,13 @@ INCLUDEPATH += $$PWD/vcpkg/include
 SRCDIR = "rpc_client_cpp"
 
 SOURCES += \
-  $$SRCDIR/rpc_client.cpp \
-  $$SRCDIR/helloworld.pb.cc \
-  $$SRCDIR/helloworld.grpc.pb.cc \
-    rpc_server/hellostream_server.cpp
+  $$SRCDIR/hellostream_client.cpp \
+  $$SRCDIR/hellostream.pb.cc \
+  $$SRCDIR/hellostream.grpc.pb.cc \
 
 HEADERS += \
-  $$SRCDIR/helloworld.pb.h \
-  $$SRCDIR/helloworld.grpc.pb.h \
-    rpc_server/hellostream_server.h
+  $$SRCDIR/hellostream.pb.h \
+  $$SRCDIR/hellostream.grpc.pb.h \
 
 macx {
   debug {
