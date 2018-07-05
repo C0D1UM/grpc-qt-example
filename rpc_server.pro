@@ -14,14 +14,20 @@ SRCDIR = "rpc_server"
 
 SOURCES += \
   $$SRCDIR/main.cpp \
-  $$SRCDIR/rpc_server.cpp \
+  $$SRCDIR/helloworld_server.cpp \
   $$SRCDIR/helloworld.pb.cc \
   $$SRCDIR/helloworld.grpc.pb.cc \
+  $$SRCDIR/hellostream.pb.cc \
+  $$SRCDIR/hellostream.grpc.pb.cc \
+  $$SRCDIR/hellostream_server.cpp
 
 HEADERS += \
+  $$SRCDIR/helloworld_server.h \
   $$SRCDIR/helloworld.pb.h \
   $$SRCDIR/helloworld.grpc.pb.h \
-  $$SRCDIR/rpc_server.h \
+  $$SRCDIR/hellostream.pb.h \
+  $$SRCDIR/hellostream.grpc.pb.h \
+  $$SRCDIR/hellostream_server.h
 
 macx {
   debug {

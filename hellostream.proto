@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package hellostream;
+
+message UpdateInterval {
+  int32 seconds = 1;
+}
+
+message TemperatureUnit {
+  enum UnitType {
+    CELCIUS = 0;
+    FARENHEIT = 1;
+  }
+  UnitType unit = 1;
+}
+
+message Temperature {
+  google.protobuf.Timestamp timestamp = 1;
+  float temperature = 2;
+  TemperatureUnit.UnitType unit = 3;
+  google.protobuf.Empty unused = 4;  // workaround
+}
+
+service Thermostat {
+  rpc GetCurrentTemperature(UpdateInterval) returns (stream Temperature) {}
+  rpc ChangeUnitTo(TemperatureUnit) returns (google.protobuf.Empty) {}
+}

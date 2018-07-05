@@ -16,10 +16,12 @@ SOURCES += \
   $$SRCDIR/rpc_client.cpp \
   $$SRCDIR/helloworld.pb.cc \
   $$SRCDIR/helloworld.grpc.pb.cc \
+    rpc_server/hellostream_server.cpp
 
 HEADERS += \
   $$SRCDIR/helloworld.pb.h \
   $$SRCDIR/helloworld.grpc.pb.h \
+    rpc_server/hellostream_server.h
 
 macx {
   debug {
