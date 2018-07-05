@@ -12,13 +12,6 @@
 
 using grpc::ServerBuilder;
 
-void RunServer(std::shared_ptr<Server> server_)
-{
-  qDebug() << "RunServer() -> Thread ID: " << QThread::currentThreadId();
-
-  server_->Wait();
-}
-
 namespace {
   std::shared_ptr<Server> buildAndStartService(GreeterServiceImpl & service_)
   {
@@ -35,7 +28,11 @@ HelloworldServer::HelloworldServer(QObject *parent)
   : QObject(parent)
   , server(buildAndStartService(this->service))
 {
-  QtConcurrent::run(RunServer, this->server);
+  QtConcurrent::run([=] {
+    qDebug() << "RunServer() -> Thread ID: " << QThread::currentThreadId();
+
+    this->server->Wait();
+  });
 
   // Testing shutdown 5 seconds later
   QTimer::singleShot(std::chrono::seconds(5), this, [=]() {
