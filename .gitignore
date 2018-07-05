@@ -10,3 +10,4 @@ build-*
 
 # Python generated artifacts
 __pycache__
+*.pyc
