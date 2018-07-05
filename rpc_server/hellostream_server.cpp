@@ -8,14 +8,16 @@
 
 using grpc::ServerBuilder;
 
+bool g_ServerIsNotDead = true;
+
 Status StreamServiceImpl::GetCurrentTemperature(ServerContext *context_,
                                                 const UpdateInterval *request_,
                                                 ServerWriter<Temperature> *stream_)
 {
   auto currentTemp = 100.0f;
-  while (true)
+  while(g_ServerIsNotDead)
   {
-    qDebug() << QThread::currentThreadId() << " " << currentTemp << "farenheit.";
+    qDebug() << QThread::currentThreadId() << currentTemp << "farenheit.";
 
     Temperature message;
     message.set_temperature(currentTemp);
@@ -52,12 +54,15 @@ HellostreamServer::HellostreamServer(QObject *parent)
   });
 
   // Testing shutdown 5 seconds later
-  /*
   QTimer::singleShot(std::chrono::seconds(5), this, [=]() {
     qDebug() << "Shuting down!";
+
+    g_ServerIsNotDead = false;
+
     this->server->Shutdown();
 
     emit shutdown();
+
+    qDebug() << "All dead.";
   });
-  */
 }

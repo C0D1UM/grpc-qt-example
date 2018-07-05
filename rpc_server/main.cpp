@@ -17,6 +17,9 @@ int main(int argc, char** argv)
   QObject::connect(
         &service, &HellostreamServer::shutdown,
         &app, &QCoreApplication::quit);
+  app.exec();
 
-  return app.exec();
+  qDebug() << "App is exiting...";
+
+  return 0;
 }
