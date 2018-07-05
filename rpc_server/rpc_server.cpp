@@ -8,7 +8,7 @@
 #include <QTimer>
 
 #include "helloworld.grpc.pb.h"
-#include "helloworld_server.h"
+#include "rpc_server.h"
 
 using grpc::ServerBuilder;
 

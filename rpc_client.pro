@@ -10,18 +10,16 @@ QMAKE_CXXFLAGS += -std=c++17
 
 INCLUDEPATH += $$PWD/vcpkg/include
 
-SRCDIR = "rpc_server"
+SRCDIR = "rpc_client_cpp"
 
 SOURCES += \
-  $$SRCDIR/main.cpp \
-  $$SRCDIR/rpc_server.cpp \
+  $$SRCDIR/rpc_client.cpp \
   $$SRCDIR/helloworld.pb.cc \
   $$SRCDIR/helloworld.grpc.pb.cc \
 
 HEADERS += \
   $$SRCDIR/helloworld.pb.h \
   $$SRCDIR/helloworld.grpc.pb.h \
-  $$SRCDIR/rpc_server.h \
 
 macx {
   debug {

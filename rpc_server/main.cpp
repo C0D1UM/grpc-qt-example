@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QThread>
 
-#include "helloworld_server.h"
+#include "rpc_server.h"
 
 
 int main(int argc, char** argv)
