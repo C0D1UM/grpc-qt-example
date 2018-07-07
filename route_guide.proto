@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package routeguide;
+
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+message RouteNote {
+  Point location = 1;
+  string message = 2;
+}
+
+service RouteGuide {
+  rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+}

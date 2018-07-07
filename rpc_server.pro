@@ -14,12 +14,13 @@ SRCDIR = "rpc_server"
 
 SOURCES += \
   $$SRCDIR/main.cpp \
-  $$SRCDIR/helloworld_server.cpp \
   $$SRCDIR/helloworld.pb.cc \
   $$SRCDIR/helloworld.grpc.pb.cc \
   $$SRCDIR/hellostream.pb.cc \
   $$SRCDIR/hellostream.grpc.pb.cc \
-  $$SRCDIR/hellostream_server.cpp
+  $$SRCDIR/hellostream_server.cpp \
+  $$SRCDIR/route_guide.grpc.pb.cc \
+  $$SRCDIR/route_guide.pb.cc \
 
 HEADERS += \
   $$SRCDIR/helloworld_server.h \
@@ -27,7 +28,9 @@ HEADERS += \
   $$SRCDIR/helloworld.grpc.pb.h \
   $$SRCDIR/hellostream.pb.h \
   $$SRCDIR/hellostream.grpc.pb.h \
-  $$SRCDIR/hellostream_server.h
+  $$SRCDIR/hellostream_server.h \
+  $$SRCDIR/route_guide.grpc.pb.h \
+  $$SRCDIR/route_guide.pb.h
 
 macx {
   debug {
@@ -58,4 +61,7 @@ macx {
     LIBS += -L$$PWD/vcpkg/lib/ -lgrpc++ -lgrpc -lgpr -lcrypto -lssl -lz -lcares -lprotobuf
   }
 }
+
+DISTFILES += \
+    route_guide.proto
 
