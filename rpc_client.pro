@@ -1,8 +1,4 @@
-QT -= gui
-QT += concurrent
-
-CONFIG += console
-CONFIG -= app_bundle
+QT += concurrent widgets
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -16,10 +12,14 @@ SOURCES += \
   $$SRCDIR/hellostream_client.cpp \
   $$SRCDIR/route_guide.grpc.pb.cc \
   $$SRCDIR/route_guide.pb.cc \
+  $$SRCDIR/chat_client_gui.cpp \
+  $$SRCDIR/route_guide_client.cpp \
 
 HEADERS += \
   $$SRCDIR/route_guide.grpc.pb.h \
   $$SRCDIR/route_guide.pb.h \
+  $$SRCDIR/chat_client_gui.h \
+  $$SRCDIR/route_guide_client.h \
 
 macx {
   debug {
