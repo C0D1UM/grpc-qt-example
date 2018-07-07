@@ -14,12 +14,14 @@ SRCDIR = "rpc_client_cpp"
 
 SOURCES += \
   $$SRCDIR/hellostream_client.cpp \
-  $$SRCDIR/hellostream.pb.cc \
-  $$SRCDIR/hellostream.grpc.pb.cc \
+  $$SRCDIR/phi.pb.cc \
+  $$SRCDIR/phi.grpc.pb.cc \
+  $$SRCDIR/Messages.pb.cc \
 
 HEADERS += \
-  $$SRCDIR/hellostream.pb.h \
-  $$SRCDIR/hellostream.grpc.pb.h \
+  $$SRCDIR/phi.pb.h \
+  $$SRCDIR/phi.grpc.pb.h \
+  $$SRCDIR/Messages.pb.h \
 
 macx {
   debug {

@@ -6,30 +6,33 @@
 
 #include <grpcpp/grpcpp.h>
 
-#include "hellostream.grpc.pb.h"
+#include "Messages.pb.h"
+#include "phi.grpc.pb.h"
 
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-using hellostream::Thermostat;
+using phi::Gdi;
 
 int main(int argc, char** argv) {
-  auto channel = grpc::CreateChannel("localhost:50061",
+  auto server_location = "192.168.100.253:60000";
+  qDebug() << "Conecting to: " << server_location;
+
+  auto channel = grpc::CreateChannel(server_location,
                                      grpc::InsecureChannelCredentials());
-  auto stub = Thermostat::NewStub(channel);
+  auto stub = Gdi::NewStub(channel);
 
   ClientContext context;
 
-  hellostream::UpdateInterval updateInterval;
-  updateInterval.set_seconds(2);
+  phi::GdiReq req;
   auto reader(
-    stub->GetCurrentTemperature(&context, updateInterval)
+    stub->GetPumpsStatus(&context, req)
   );
 
-  hellostream::Temperature currentTemperature;
-  while(reader->Read(&currentTemperature))
+  PITHUNDER::Messages msg;
+  while(reader->Read(&msg))
   {
-    qDebug() << QString::fromStdString(currentTemperature.DebugString());
+    qDebug() << QString::fromStdString(msg.DebugString());
   }
 
   return 0;
