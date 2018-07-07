@@ -1,3 +1,4 @@
+#include <QtConcurrentRun>
 #include <QDebug>
 
 #include <grpcpp/grpcpp.h>
@@ -11,11 +12,6 @@ using grpc::ClientWriter;
 using grpc::Status;
 using routeguide::Point;
 using routeguide::RouteGuide;
-
-void RouteGuideClient::sendAuthorize()
-{
-  qDebug() << "sending authorize";
-}
 
 Point MakePoint(long latitude, long longitude) {
   Point p;
@@ -33,42 +29,29 @@ RouteNote MakeRouteNote(const std::string &message,
   return n;
 }
 
-void RouteGuideClient::RouteChat()
+void RouteGuideClient::sendAuthorize()
 {
-/*
-  std::thread writer([stream]() {
-    std::vector<RouteNote> notes{
-        MakeRouteNote("First message", 0, 0),
-        MakeRouteNote("Second message", 0, 1),
-        MakeRouteNote("Third message", 1, 0),
-        MakeRouteNote("Fourth message", 0, 0)};
-    for (const RouteNote &note : notes)
-    {
-      std::cout << "Sending message " << note.message()
-                << " at " << note.location().latitude() << ", "
-                << note.location().longitude() << std::endl;
-      stream->Write(note);
-    }
-  });
-  RouteNote server_note;
-  while (stream->Read(&server_note))
-  {
-    std::cout << "Got message " << server_note.message()
-              << " at " << server_note.location().latitude() << ", "
-              << server_note.location().longitude() << std::endl;
-  }
-  writer.join();
-  Status status = stream->Finish();
-  if (!status.ok())
-  {
-    std::cout << "RouteChat rpc failed." << std::endl;
-  }
-*/
+  auto routeNote = MakeRouteNote("My authorization message, bitch!", 0, 0);
+
+  this->stream->Write(routeNote);
+
+  qDebug() << QString::fromStdString(routeNote.DebugString());
 }
+
 
 RouteGuideClient::RouteGuideClient(QObject* parent_)
   : QObject(parent_)
-  , stub(RouteGuide::NewStub(grpc::CreateChannel("0.0.0.0:60000",
+  , stub(RouteGuide::NewStub(grpc::CreateChannel("0.0.0.0:60001",
                              grpc::InsecureChannelCredentials())))
   , stream(this->stub->RouteChat(&this->context))
-{}
+{
+  QtConcurrent::run([=]{
+    RouteNote newNote;
+    while (stream->Read(&newNote))
+    {
+      auto receivedMsg = QString::fromStdString(newNote.DebugString());
+
+      emit pumpStatusReceived(receivedMsg);
+    }
+  });
+}

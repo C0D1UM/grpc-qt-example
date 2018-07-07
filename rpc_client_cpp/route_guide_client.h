@@ -21,7 +21,9 @@ class RouteGuideClient : public QObject
 
 public:
   RouteGuideClient(QObject* parent_ = nullptr);
-  void RouteChat();
+
+signals:
+  void pumpStatusReceived(QString data_);
 
 public slots:
   void sendAuthorize();

@@ -5,19 +5,19 @@
 class QPushButton;
 class QPlainTextEdit;
 
-class ChatClientGui : public QDialog
+class ChatServerGui : public QDialog
 {
   Q_OBJECT
 
 public:
-  ChatClientGui(QWidget* parent_ = nullptr);
+  ChatServerGui(QWidget* parent_ = nullptr);
 
 public:
   QPlainTextEdit* log;
 
 signals:
-  void sendAuthorizeButtonPushed();
+  void sendPumpStatusButtonPushed();
 
 private:
-  QPushButton* sendAuthorize;
+  QPushButton* sendPumpStatus;
 };
