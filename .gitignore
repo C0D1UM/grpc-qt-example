@@ -17,3 +17,7 @@ __pycache__
 
 # VSCode
 **/.vscode
+
+# Visual C++
+Debug
+Win32
