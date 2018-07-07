@@ -47,11 +47,13 @@ RouteGuideClient::RouteGuideClient(QObject* parent_)
 {
   QtConcurrent::run([=]{
     RouteNote newNote;
-    while (stream->Read(&newNote))
+    while(stream->Read(&newNote))
     {
       auto receivedMsg = QString::fromStdString(newNote.DebugString());
 
       emit pumpStatusReceived(receivedMsg);
     }
+    stream->Finish();
+    qDebug() << "Stopped reading...";
   });
 }

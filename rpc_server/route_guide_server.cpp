@@ -29,6 +29,8 @@ RouteGuideServer::RouteGuideServer()
     qDebug() << "RunServer() -> Thread ID: " << QThread::currentThreadId();
 
     this->server->Wait();
+
+    qDebug() << "Server stopped waiting";
   });
 }
 
@@ -39,16 +41,13 @@ Status RouteGuideServer::RouteChat(ServerContext *context_,
 
   qDebug() << "A client is connected";
 
-  while(true)
+  RouteNote newNote;
+  while(this->stream->Read(&newNote))
   {
-    RouteNote newNote;
-    if(!this->stream->Read(&newNote))
-      break;
-
     emit authorizationReceived(QString::fromStdString(newNote.DebugString()));
   }
 
-  qDebug() << "Bye bye";
+  qDebug() << "Stopped reading";
   return Status::OK;
 }
 
