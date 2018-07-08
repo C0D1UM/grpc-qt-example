@@ -1,4 +1,8 @@
-QT += concurrent widgets
+QT -= gui
+QT += concurrent
+
+CONFIG += console
+CONFIG -= app_bundle
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -9,17 +13,13 @@ INCLUDEPATH += $$PWD/vcpkg/include
 SRCDIR = "rpc_client_cpp"
 
 SOURCES += \
-  $$SRCDIR/hellostream_client.cpp \
-  $$SRCDIR/route_guide.grpc.pb.cc \
-  $$SRCDIR/route_guide.pb.cc \
-  $$SRCDIR/chat_client_gui.cpp \
-  $$SRCDIR/route_guide_client.cpp \
+  $$SRCDIR/helloworld_client.cpp \
+  $$SRCDIR/helloworld.grpc.pb.cc \
+  $$SRCDIR/helloworld.pb.cc \
 
 HEADERS += \
-  $$SRCDIR/route_guide.grpc.pb.h \
-  $$SRCDIR/route_guide.pb.h \
-  $$SRCDIR/chat_client_gui.h \
-  $$SRCDIR/route_guide_client.h \
+  $$SRCDIR/helloworld.grpc.pb.h \
+  $$SRCDIR/helloworld.pb.h \
 
 macx {
   debug {

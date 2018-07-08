@@ -1,23 +1,12 @@
-#include <QApplication>
-#include <QObject>
-#include <QPlainTextEdit>
+#include <QCoreApplication>
 
-#include "chat_server_gui.h"
-#include "route_guide_server.h"
+#include "helloworld_server.h".h"
 
 int main(int argc, char** argv)
 {
-  QApplication app(argc, argv);
+  QCoreApplication app(argc, argv);
 
-  ChatServerGui gui;
-  gui.show();
-
-  RouteGuideServer server;
-
-  QObject::connect(&server, &RouteGuideServer::authorizationReceived,
-                   gui.log, &QPlainTextEdit::appendPlainText);
-  QObject::connect(&gui, &ChatServerGui::sendPumpStatusButtonPushed,
-                   &server, &RouteGuideServer::transmitMessage);
+  HelloworldServer hello;
 
   return app.exec();
 }

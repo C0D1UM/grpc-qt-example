@@ -1,4 +1,8 @@
-QT += concurrent widgets
+QT -= gui
+QT += concurrent
+
+CONFIG += console
+CONFIG -= app_bundle
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -10,16 +14,14 @@ SRCDIR = "rpc_server"
 
 SOURCES += \
   $$SRCDIR/main.cpp \
-  $$SRCDIR/route_guide.grpc.pb.cc \
-  $$SRCDIR/route_guide.pb.cc \
-  $$SRCDIR/chat_server_gui.cpp \
-  $$SRCDIR/route_guide_server.cpp
+  $$SRCDIR/helloworld_server.cpp \
+  $$SRCDIR/helloworld.grpc.pb.cc \
+  $$SRCDIR/helloworld.pb.cc \
 
 HEADERS += \
-  $$SRCDIR/route_guide.grpc.pb.h \
-  $$SRCDIR/route_guide.pb.h \
-  $$SRCDIR/chat_server_gui.h \
-  $$SRCDIR/route_guide_server.h \
+  $$SRCDIR/helloworld.grpc.pb.h \
+  $$SRCDIR/helloworld.pb.h \
+  $$SRCDIR/helloworld_server.h \
 
 macx {
   debug {

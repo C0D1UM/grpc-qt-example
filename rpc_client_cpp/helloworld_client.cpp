@@ -2,6 +2,9 @@
 #include <memory>
 #include <string>
 
+#include <QThread>
+#include <QDebug>
+
 #include <grpcpp/grpcpp.h>
 
 #include "helloworld.grpc.pb.h"
@@ -50,11 +53,17 @@ class GreeterClient {
 };
 
 int main(int argc, char** argv) {
+  qDebug() << "Testing";
+
   GreeterClient greeter(grpc::CreateChannel(
-      "localhost:50060", grpc::InsecureChannelCredentials()));
-  std::string user("world");
-  std::string reply = greeter.SayHello(user);
-  std::cout << "Greeter received: " << reply << std::endl;
+      "localhost:50061", grpc::InsecureChannelCredentials()));
+  for(auto idx = 0; idx < 10; idx++)
+  {
+    auto user = QString("%1 %2").arg(idx).arg("world").toStdString();
+    std::string reply = greeter.SayHello(user);
+    std::cout << "Received: " << reply << std::endl;
+    QThread::sleep(2);
+  }
 
   return 0;
 }
